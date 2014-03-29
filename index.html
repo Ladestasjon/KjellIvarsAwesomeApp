@@ -27,39 +27,37 @@
 
 <div class="container" ng-controller="ladeCtrl">
     <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-12">
-            <h2>{{hello}}</h2>
-            <input type="text" ng-model="search"/>
-            <table class="table">
-                <tr>
-                    <th>Tilgjengelige ladepunkt</th>
-                    <th>Gate</th>
-                    <th>Sted</th>
-                    <th>Kommentar</th>
-                    <th>Connector types</th>
-                </tr>
-                <tr ng-repeat="item in data.chargerstations">
-                    <td ng-bind="item.csmd.Available_charging_points"></td>
-                    <td ng-bind="item.csmd.Street"></td>
-                    <td ng-bind="item.csmd.City"></td>
-                    <td ng-bind="item.csmd.User_comment"></td>
-                    <td>
-                        <ul>
-                            <li ng-repeat="conn in item.attr.conn | filter:{'4':search}" ng-bind="conn[4].trans"></li>
-                        </ul>
-                    </td>
-                </tr>
 
-            </table>
+    <h2 style="padding-top:40px">Hvor vil du dra?</h2>
 
+    <form ng-submit="showChargerStations()">
 
-            <input type="text" ng-model="long"/>
-            <input type="text" ng-model="lat"/>
+        <div class="row">
+            <div class="col-xs-2">
+                Fra
+            </div>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" ng-model="from" placeholder="From Latitude"/>
+            </div>
 
-            <p><a class="btn btn-default" role="button" ng-click="getChargerStationsNear()">View details »</a></p>
+    </div>
+        <div class="row">
+            <div class="col-xs-2">
+                Til
+            </div>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" ng-model="to" placeholder="To Latitude"/>
+            </div>
+
+            <div class="col-xs-2">
+                <input type="submit" class="btn btn-primary" value="Søk">
+            </div>
         </div>
-
+    </form>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="map-canvas" style="height:500px"></div>
+        </div>
     </div>
 
     <hr>
@@ -70,8 +68,12 @@
 </div>
 <!-- /container -->
 
-
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHL2nPdJsC78a-3g8oO9GE5HLm7w3sY_I&sensor=true">
+</script>
 <script src="js/angular.js"></script>
 <script src="js/ladeApp.js"></script>
+
+
 </body>
 </html>
